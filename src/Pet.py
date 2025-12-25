@@ -2,7 +2,6 @@ import json
 
 from PySide6 import QtGui, QtWidgets
 
-import src.UI.dialog
 
 """
 Класс описывающий нашего петомца 
@@ -11,16 +10,28 @@ import src.UI.dialog
 """
 
 class Pet:
+    lable = None
+    allWindows = None
+
     pathParameters = "parameters.json"
     state = {"idle": "src/Animations/idle.gif",
              "grap": "src/Animations/grapIdle.gif",
              "pettingGood": "src/Animations/pettingGood.gif",
-             "pettingBad": "src/Animations/pettingBad.gif"
+             "pettingBad": "src/Animations/pettingBad.gif",
+             "eat": "src/Animations/eat.gif",
+             "toilet": "src/Animations/toilet.gif",
+             "game": "src/Animations/game.gif",
+             "die": "src/Animations/die.gif"
              }
+
     cursor: {str: QtGui.Qt.CursorShape} = {"idle": QtGui.Qt.CursorShape.ArrowCursor,
                                            "grap": QtGui.Qt.CursorShape.OpenHandCursor,
                                            "pettingGood": QtGui.Qt.CursorShape.OpenHandCursor,
                                            "pettingBad": QtGui.Qt.CursorShape.OpenHandCursor,
+                                           "eat": QtGui.Qt.CursorShape.ArrowCursor,
+                                           "toilet": QtGui.Qt.CursorShape.ArrowCursor,
+                                           "game": QtGui.Qt.CursorShape.ArrowCursor,
+                                           "die": QtGui.Qt.CursorShape.ArrowCursor
                                            }
 
 
@@ -36,12 +47,25 @@ class Pet:
 
     def game(self):
         print("Игра")
+        self.moodIndicator += 10
+        if self.moodIndicator > 100:
+            self.moodIndicator = 100
+        self.currentState = "game"
+        self.lable.changeMoveFinish(self.endAnimation)
 
     def eat(self):
         print("Кушать")
+        self.eatIndicator += 30
+        if self.eatIndicator > 100:
+            self.eatIndicator = 100
+        self.currentState = "eat"
+        self.lable.changeMoveFinish(self.endAnimation)
 
     def toilet(self):
         print("Туалет")
+        self.toiletIndicator = 100
+        self.currentState = "toilet"
+        self.lable.changeMoveFinish(self.endAnimation)
 
     def chatII(self):
         print("Чат")
@@ -54,9 +78,8 @@ class Pet:
 
     def parameters(self):
         print("Параметры")
-        window = QtWidgets.QDialog()
-        app = src.UI.dialog.Ui_Dialog(window, self.eatIndicator,self.toiletIndicator,self.moodIndicator)
-        window.exec()
+        self.allWindows[1].show()
+        self.allWindows[1].activateWindow()
 
 
     def saveParameters(self):
@@ -79,5 +102,26 @@ class Pet:
         print("Данные прочитаны")
 
 
+    def setNewYear(self):
+        print("Создаём новый год!")
+        self.state = {"idle": "src/Animations/New_idle.gif",
+                 "grap": "src/Animations/New_grapIdle.gif",
+                 "pettingGood": "src/Animations/New_pettingGood.gif",
+                 "pettingBad": "src/Animations/New_pettingBad.gif",
+                 "eat": "src/Animations/eat.gif",
+                 "toilet": "src/Animations/toilet.gif",
+                 "game": "src/Animations/game.gif",
+                 "die": "src/Animations/die.gif"
+                 }
+
+
     def die(self):
         print("Тамагочи рип")
+        self.currentState = "die"
+        self.lable.changeMove()
+
+
+    def endAnimation(self):
+        self.currentState = "idle"
+        self.lable.changeMove()
+        print("Конец анимации")

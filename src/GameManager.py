@@ -23,6 +23,9 @@ class GameManager:
 
     def mainThread(self):
         while True:
+            if self.pet.eatIndicator < 0:
+                self.kill()
+
             if self.delta == 10:
                 self.delta = 0
                 self.pet.saveParameters()
@@ -30,4 +33,6 @@ class GameManager:
                 time.sleep(10)
                 self.changeParametrs()
                 self.delta += 1
-
+            self.pet.allWindows[2].changeParametrs(self.pet.eatIndicator,
+                                                   self.pet.toiletIndicator,
+                                                   self.pet.moodIndicator)
