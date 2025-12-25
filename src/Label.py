@@ -1,4 +1,6 @@
 from PySide6 import QtWidgets, QtCore, QtGui
+
+
 from src.PetMenu import MenuPet
 
 class Label (QtWidgets.QLabel):
@@ -13,6 +15,7 @@ class Label (QtWidgets.QLabel):
 
     def enterEvent(self, event, /):
         self.petting = True
+
 
     def wheelEvent(self, event, /):
         if self.petting != False:
@@ -57,14 +60,21 @@ class Label (QtWidgets.QLabel):
 
     def leaveEvent(self, event, /):
         self.petting = False
-        self.pet.currentState = "idle"
-        self.setCursor(self.pet.cursor["idle"])
-        self.changeMove()
+        #self.pet.currentState = "idle"
+        #self.setCursor(self.pet.cursor["idle"])
+        #self.changeMove()
 
     def changeMove(self):
         self.movie().stop()
         self.setMovie(QtGui.QMovie(f"{self.pet.state[self.pet.currentState]}"))
         self.movie().start()
+
+    def changeMoveFinish(self, func):
+        self.movie().stop()
+        self.setMovie(QtGui.QMovie(f"{self.pet.state[self.pet.currentState]}"))
+        self.movie().start()
+        self.movie().setCacheMode(QtGui.QMovie.CacheMode.CacheAll)
+        self.movie().finished.connect(func)
 
     def finishAnimation(self):
         self.petting = True

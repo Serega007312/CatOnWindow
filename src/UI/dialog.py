@@ -1,13 +1,3 @@
-# -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'untitled.ui'
-##
-## Created by: Qt User Interface Compiler version 6.10.0
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
-
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
@@ -23,7 +13,7 @@ class Ui_Dialog(object):
     toilet = 0
     mood = 0
 
-    def __init__(self,dialog,eat_,toilet_,mood_):
+    def __init__(self, dialog, eat_, toilet_, mood_):
         self.setupUi(dialog)
         self.progressEat.setValue(eat_)
         self.progressToilet.setValue(toilet_)
