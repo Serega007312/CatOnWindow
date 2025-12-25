@@ -1,4 +1,4 @@
-<h1><img src="src/Animations/New_idle.gif">КОТ В ОКНЕ<img src="src/Animations/New_grapidle.gif"></h1>
+<h1><img src="src/Animations/New_idle.gif">КОТ В ОКНЕ<img src="src/Animations/New_grapIdle.gif"></h1>
 
 ## Библиотеки
 
